@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="System building dengan kakas ANT">
+	<property name="direktori" value="ifunpas.build.prog"/>
+	<property name="junit" value="E:\PENDIDIKAN\KULIAH\SMST 6\verifikasi dan validasi perangkat lunak\praktikum\library\junit-4.12.jar"/>
+	<property name="base" value="."/>
+	
+	<target name="compile">
+		<javac srcdir="${base}/src" destdir="destDir/src" includeantruntime="false"/>
+		<javac srcdir="${base}/test" destdir="destDir/test" includeantruntime="false">
+			<classpath>
+				<pathelement location="${junit}"/>
+				<pathelement location="destDir/src"/>
+			</classpath>
+		</javac>
+		<echo>Compile Source....</echo>
+		<echo>Compile Test....</echo>
+	</target>
+	<target name="build-jar">
+		<echo>Buid Jar..</echo>
+		<jar destFile="buildjar/search.jar" basedir="destDir/src">
+			<manifest>
+				<attribute name="Main-Class" value="${direktori}.SearchApp"/>
+			</manifest>
+		
+		</jar>
+	</target>
+	<target name="run">
+		<java jar="buildjar/search.jar" fork="true">
+			<arg line="4"/>
+		</java>
+	</target>
+
+	<target name="builds-jar">
+			<echo>Build Jar..</echo>
+			<jar destFile="buildjar/searchertest.jar" basedir="destDir/test">
+				<manifest>
+					<attribute name="Main-Class" value="${direktori}.SearcherTest"/>
+				</manifest>
+			
+			</jar>
+		</target>
+
+	<target name="runsearchertest">
+		<java jar="buildjar/searchertest.jar" fork="true">
+			<arg line="4"/>
+		</java>
+	</target>
+
+</project>
